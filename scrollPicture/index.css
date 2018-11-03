@@ -1,0 +1,90 @@
+* {
+
+    font-size: 0;
+}
+
+.scroll {
+
+    position: relative;
+
+    width: 1000px;
+    height: 300px;
+
+    margin: 0 auto;
+
+    overflow: hidden;
+}
+
+#scroll {
+
+    position: relative;
+    left: -1000px;
+    
+    width: 7000px;
+    height: inherit;
+}
+
+.pic {
+
+    float: left;
+    width: 1000px;
+    height: inherit;
+
+    font-size: 200px;
+    text-align: center;
+}
+
+.btn-mv {
+
+    height: inherit;
+    width: 50px;
+
+    background-color: aquamarine;
+    opacity: 0.2;
+
+    font-size: 30px;
+    line-height: 300px;
+    text-align: center;
+
+    transition: opacity 0.2s, font-size 0.3s;
+}
+
+.btn-mv:hover {
+
+    opacity: 0.5;
+    font-size: 40px;
+}
+
+#mv-l {
+
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+#mv-r {
+
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.color1 {
+    background-color: red;
+}
+
+.color2 {
+    background-color: orange;
+}
+
+.color3 {
+    background-color: yellow;
+}
+
+.color4 {
+    background-color: green;
+}
+
+.color5 {
+    background-color: aqua;
+}
