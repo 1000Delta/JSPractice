@@ -1,53 +1,62 @@
+const SCROLL_PIC_NUM = 5;
+const SCROLL_PIC_WIDTH = 1000;
 var scroll = document.getElementById('scroll');
 var btnList = document.getElementsByClassName('scroll-btn');
-var left = -1000;
+var left = - SCROLL_PIC_WIDTH;
 
 // 轮播图切换函数
+function setLeft() {
+
+    scroll.style.left = left + 'px';
+}
 function mvScroll(mvLeft = false) {
 
-    scroll.style.transition = 'left 0.2s';
-    if (mvLeft) {
+    // 无缝切换
+    scroll.style.transition = 'left 0s';
+    if (left > - SCROLL_PIC_WIDTH) {
 
-        left += 1000;
-        scroll.style.left = left + 'px';
-    } else {
+        left = - SCROLL_PIC_NUM * SCROLL_PIC_WIDTH;
+    } else if (left < - SCROLL_PIC_NUM * SCROLL_PIC_WIDTH) {
 
-        left -= 1000;
-        scroll.style.left = left + 'px';
+        left = - SCROLL_PIC_WIDTH;
     }
+    setLeft(left);
+    setTimeout(()=>{
+        scroll.style.transition = 'left 0.2s';
+        if (mvLeft) {
+
+            left += SCROLL_PIC_WIDTH;
+            setLeft(left);
+        } else {
+
+            left -= SCROLL_PIC_WIDTH;
+            setLeft(left);
+        }
+        switchBtn(left);
+    }, 4);    
 }
 
 //按钮切换函数
-function switchBtn() {
-    
+function switchBtn(left) {
+        
     const normalBtnStyle = 'background-color: #cccccc; opacity: 0.5;';
-    const ActiveBtnStyle = 'background-color: aqua; opacity: 0.8;';
-    for (let i = 1; i < btnList.length+1; i++) {
+    const activeBtnStyle = 'background-color: aqua; opacity: 0.8;';
+    for (let i = 1; i < SCROLL_PIC_NUM + 1; i++) {
 
-        if (i != left / -1000) {
+        let v = left / -SCROLL_PIC_WIDTH;
+        
+        if (i != (v<1?v+5:v>5?v-5:v)) {
+
             btnList[i-1].setAttribute('style', normalBtnStyle);
         } else {
-            btnList[i-1].setAttribute('style', ActiveBtnStyle);
+
+            btnList[i-1].setAttribute('style', activeBtnStyle);
         }
     }
 }
+switchBtn(left);
 
-// window.setInterval(mvScroll, 2000);
-
-// 无缝切换
-scroll.addEventListener('transitionend', function() {
-    
-    if (left >= 0) {
-        scroll.style.transition = 'left 0s';
-        left = -5000;
-        scroll.style.left = left + 'px';
-    } else if (left <= -6000) {
-        scroll.style.transition = 'left 0s';
-        left = -1000;
-        scroll.style.left = left + 'px';
-    }
-    switchBtn();
-})
+window.setInterval(mvScroll, 2000);
 
 // 滚轮切换
 scroll.addEventListener('wheel', function(event) {
@@ -68,9 +77,10 @@ for (let i = 0; i < btnList.length; i++) {
     .addEventListener('click', function(event) {
         
         var index = parseInt(event.target.getAttribute('id').replace('scroll-btn', ''));        
-        left = index * -1000;
+        left = index * -SCROLL_PIC_WIDTH;
         scroll.style.transition = 'left 0.2s';            
-        scroll.style.left = left + 'px';
+        setLeft(left);
+        switchBtn(left);
     })
 }
 
